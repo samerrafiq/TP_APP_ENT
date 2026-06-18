@@ -1,8 +1,8 @@
-package com.controller;
+package com.example.demo.controller;
 
-import com.dto.MembreDTO;
-import com.odoru.entity.Membre;
-import com.services.MembreService;
+import com.example.demo.entity.Membre;
+import com.example.demo.dto.MembreDTO;
+import com.example.demo.services.MembreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

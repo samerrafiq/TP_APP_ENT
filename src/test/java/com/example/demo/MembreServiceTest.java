@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.dto.MembreDTO;
+import com.example.demo.dto.MembreDTO;
 import com.example.demo.entity.Membre;
 import com.example.demo.repository.MembreRepository;
 import com.example.demo.services.MembreServiceImpl;

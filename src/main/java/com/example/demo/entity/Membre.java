@@ -1,4 +1,4 @@
-package com.odoru.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 

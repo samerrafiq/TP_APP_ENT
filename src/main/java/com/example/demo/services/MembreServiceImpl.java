@@ -1,8 +1,8 @@
-package com.services;
+package com.example.demo.services;
 
-import com.dto.MembreDTO;
-import com.odoru.entity.Membre;
-import com.repository.MembreRepository;
+import com.example.demo.dto.MembreDTO;
+import com.example.demo.entity.Membre;
+import com.example.demo.repository.MembreRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class MembreServiceImpl implements MembreService {
         membre.setPrenom(dto.getPrenom());
         membre.setAdresseMail(dto.getAdresseMail());
         membre.setIdentifiant(dto.getIdentifiant());
-        membre.setMotDePasse(dto.getMotDePasse()); // à hasher plus tard
+        membre.setMotDePasse(dto.getMotDePasse());
         membre.setVille(dto.getVille());
         membre.setPays(dto.getPays());
         membre.setNiveauExpertise(dto.getNiveauExpertise());

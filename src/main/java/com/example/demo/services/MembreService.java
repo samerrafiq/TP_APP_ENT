@@ -1,7 +1,7 @@
-package com.services;
+package com.example.demo.services;
 
-import com.odoru.entity.Membre;
-import com.dto.MembreDTO;
+import com.example.demo.entity.Membre;
+import com.example.demo.dto.MembreDTO;
 import java.util.List;
 
 public interface MembreService {
