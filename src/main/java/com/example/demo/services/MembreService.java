@@ -12,4 +12,5 @@ public interface MembreService {
     void supprimerMembre(Long id);
     Membre changerRole(Long membreId, Long secretaireId, String nouveauRole);
     Membre modifierNiveau(Long membreId, Long secretaireId, int nouveauNiveau);
+    Membre initialiserPremierSecretaire(MembreDTO dto);
 }

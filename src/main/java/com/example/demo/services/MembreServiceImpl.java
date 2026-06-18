@@ -88,4 +88,30 @@ public class MembreServiceImpl implements MembreService {
         membre.setNiveauExpertise(nouveauNiveau);
         return membreRepository.save(membre);
     }
+    @Override
+    public Membre initialiserPremierSecretaire(MembreDTO dto) {
+        // N'autorise la création QUE si aucun secrétaire n'existe (bootstrap)
+        boolean secretaireExiste = membreRepository.findAll().stream()
+                .anyMatch(m -> m.getRole() == Membre.Role.SECRETAIRE);
+        if (secretaireExiste) {
+            throw new RuntimeException("Un secrétaire existe déjà. Utilisez l'endpoint normal.");
+        }
+        if (membreRepository.existsByIdentifiant(dto.getIdentifiant())) {
+            throw new RuntimeException("Identifiant déjà utilisé");
+        }
+        if (membreRepository.existsByAdresseMail(dto.getAdresseMail())) {
+            throw new RuntimeException("Email déjà utilisé");
+        }
+        Membre membre = new Membre();
+        membre.setNomFamille(dto.getNomFamille());
+        membre.setPrenom(dto.getPrenom());
+        membre.setAdresseMail(dto.getAdresseMail());
+        membre.setIdentifiant(dto.getIdentifiant());
+        membre.setMotDePasse(dto.getMotDePasse());
+        membre.setVille(dto.getVille());
+        membre.setPays(dto.getPays());
+        membre.setNiveauExpertise(dto.getNiveauExpertise());
+        membre.setRole(Membre.Role.SECRETAIRE);
+        return membreRepository.save(membre);
+    }
 }

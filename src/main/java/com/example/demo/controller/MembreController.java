@@ -56,4 +56,8 @@ public class MembreController {
                                                  @RequestParam int niveau) {
         return ResponseEntity.ok(membreService.modifierNiveau(id, secretaireId, niveau));
     }
+    @PostMapping("/init-secretaire")
+    public ResponseEntity<Membre> initSecretaire(@RequestBody MembreDTO dto) {
+        return ResponseEntity.ok(membreService.initialiserPremierSecretaire(dto));
+    }
 }
