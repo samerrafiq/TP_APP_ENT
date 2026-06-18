@@ -22,6 +22,10 @@ public class BadgeController {
         return ResponseEntity.ok(badgeService.creerBadge());
     }
 
+    @GetMapping
+    public ResponseEntity<List<Badge>> lister() {
+        return ResponseEntity.ok(badgeService.listerBadges());
+    }
     @PutMapping("/{badgeId}/associer/{membreId}")
     public ResponseEntity<Badge> associer(@PathVariable Long badgeId,
                                           @RequestParam Long secretaireId,

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface BadgeService {
     Badge creerBadge();
+    List<Badge> listerBadges();
     Badge associerBadge(Long badgeId, Long secretaireId, Long membreId);
     Badge dissocierBadge(Long badgeId, Long secretaireId);
     Presence badger(String numeroBadge, Long coursId);

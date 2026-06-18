@@ -29,6 +29,10 @@ public class BadgeServiceImpl implements BadgeService {
         Badge badge = new Badge();
         return badgeRepository.save(badge);
     }
+    @Override
+    public List<Badge> listerBadges() {
+        return badgeRepository.findAll();
+    }
 
     @Override
     public Badge associerBadge(Long badgeId, Long secretaireId, Long membreId) {

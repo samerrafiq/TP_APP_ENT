@@ -42,4 +42,18 @@ public class MembreController {
         membreService.supprimerMembre(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/role")
+    public ResponseEntity<Membre> changerRole(@PathVariable Long id,
+                                              @RequestParam Long secretaireId,
+                                              @RequestParam String role) {
+        return ResponseEntity.ok(membreService.changerRole(id, secretaireId, role));
+    }
+
+    @PutMapping("/{id}/niveau")
+    public ResponseEntity<Membre> modifierNiveau(@PathVariable Long id,
+                                                 @RequestParam Long secretaireId,
+                                                 @RequestParam int niveau) {
+        return ResponseEntity.ok(membreService.modifierNiveau(id, secretaireId, niveau));
+    }
 }

@@ -61,4 +61,31 @@ public class MembreServiceImpl implements MembreService {
     public void supprimerMembre(Long id) {
         membreRepository.deleteById(id);
     }
+
+    @Override
+    public Membre changerRole(Long membreId, Long secretaireId, String nouveauRole) {
+        Membre secretaire = membreRepository.findById(secretaireId)
+                .orElseThrow(() -> new RuntimeException("Secrétaire introuvable"));
+        if (secretaire.getRole() != Membre.Role.SECRETAIRE) {
+            throw new RuntimeException("Seul le secrétaire peut changer un rôle");
+        }
+        Membre membre = getMembre(membreId);
+        membre.setRole(Membre.Role.valueOf(nouveauRole.toUpperCase()));
+        return membreRepository.save(membre);
+    }
+
+    @Override
+    public Membre modifierNiveau(Long membreId, Long secretaireId, int nouveauNiveau) {
+        if (nouveauNiveau < 1 || nouveauNiveau > 5) {
+            throw new RuntimeException("Le niveau doit être entre 1 et 5");
+        }
+        Membre secretaire = membreRepository.findById(secretaireId)
+                .orElseThrow(() -> new RuntimeException("Secrétaire introuvable"));
+        if (secretaire.getRole() != Membre.Role.SECRETAIRE) {
+            throw new RuntimeException("Seul le secrétaire peut modifier un niveau");
+        }
+        Membre membre = getMembre(membreId);
+        membre.setNiveauExpertise(nouveauNiveau);
+        return membreRepository.save(membre);
+    }
 }
