@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Membre;
 import com.example.demo.dto.MembreDTO;
+import com.example.demo.dto.MembreResponseDTO;
 import com.example.demo.services.MembreService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,23 +19,30 @@ public class MembreController {
     }
 
     @PostMapping
-    public ResponseEntity<Membre> creer(@RequestBody MembreDTO dto) {
-        return ResponseEntity.ok(membreService.creerMembre(dto));
+    public ResponseEntity<MembreResponseDTO> creer(@RequestBody MembreDTO dto) {
+        return ResponseEntity.ok(new MembreResponseDTO(membreService.creerMembre(dto)));
+    }
+
+    @PostMapping("/init-secretaire")
+    public ResponseEntity<MembreResponseDTO> initSecretaire(@RequestBody MembreDTO dto) {
+        return ResponseEntity.ok(new MembreResponseDTO(membreService.initialiserPremierSecretaire(dto)));
     }
 
     @GetMapping
-    public ResponseEntity<List<Membre>> lister() {
-        return ResponseEntity.ok(membreService.listerMembres());
+    public ResponseEntity<List<MembreResponseDTO>> lister() {
+        return ResponseEntity.ok(membreService.listerMembres().stream()
+                .map(MembreResponseDTO::new)
+                .toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Membre> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(membreService.getMembre(id));
+    public ResponseEntity<MembreResponseDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(new MembreResponseDTO(membreService.getMembre(id)));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Membre> modifier(@PathVariable Long id, @RequestBody MembreDTO dto) {
-        return ResponseEntity.ok(membreService.modifierMembre(id, dto));
+    public ResponseEntity<MembreResponseDTO> modifier(@PathVariable Long id, @RequestBody MembreDTO dto) {
+        return ResponseEntity.ok(new MembreResponseDTO(membreService.modifierMembre(id, dto)));
     }
 
     @DeleteMapping("/{id}")
@@ -44,20 +52,16 @@ public class MembreController {
     }
 
     @PutMapping("/{id}/role")
-    public ResponseEntity<Membre> changerRole(@PathVariable Long id,
-                                              @RequestParam Long secretaireId,
-                                              @RequestParam String role) {
-        return ResponseEntity.ok(membreService.changerRole(id, secretaireId, role));
+    public ResponseEntity<MembreResponseDTO> changerRole(@PathVariable Long id,
+                                                         @RequestParam Long secretaireId,
+                                                         @RequestParam String role) {
+        return ResponseEntity.ok(new MembreResponseDTO(membreService.changerRole(id, secretaireId, role)));
     }
 
     @PutMapping("/{id}/niveau")
-    public ResponseEntity<Membre> modifierNiveau(@PathVariable Long id,
-                                                 @RequestParam Long secretaireId,
-                                                 @RequestParam int niveau) {
-        return ResponseEntity.ok(membreService.modifierNiveau(id, secretaireId, niveau));
-    }
-    @PostMapping("/init-secretaire")
-    public ResponseEntity<Membre> initSecretaire(@RequestBody MembreDTO dto) {
-        return ResponseEntity.ok(membreService.initialiserPremierSecretaire(dto));
+    public ResponseEntity<MembreResponseDTO> modifierNiveau(@PathVariable Long id,
+                                                            @RequestParam Long secretaireId,
+                                                            @RequestParam int niveau) {
+        return ResponseEntity.ok(new MembreResponseDTO(membreService.modifierNiveau(id, secretaireId, niveau)));
     }
 }
